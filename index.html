@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORA Towers G Building</title>
+    <link rel="stylesheet" href="property-styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeSelect = document.getElementById('type');
+            const floorSelect = document.getElementById('floor');
+            const detailsDiv = document.getElementById('details');
+            
+            const propertyDetails = {
+                '1 BED': `
+                    <ul>
+                        <li>Starting Price 4M</li>
+                    </ul>`,
+                '1 BED LOFT': `
+                    <ul>
+                        <li>Starting Price 6M</li>
+                        <li>108 Sqm (Village View)</li>
+                    </ul>`,
+                '2 BED': `
+                    <ul>
+                        <li>Starting Price 6.6M</li>
+                        <li>2 BED DUP: Starting Price 8.7M</li>
+                        <li>2 BED LOFT: Starting Price 9M
+                            <ul>
+                                <li>158 Sqm (Village View)</li>
+                                <li>153 Sqm (Village View)</li>
+                                <li>162 Sqm (Village View)</li>
+                            </ul>
+                        </li>
+                        <li>Available sizes for 2 BED:</li>
+                        <ul>
+                            <li>G: 137 Sqm</li>
+                            <li>1: 129 Sqm, 137 Sqm</li>
+                            <li>2: 129 Sqm, 137 Sqm</li>
+                            <li>3: 129 Sqm, 137 Sqm</li>
+                            <li>4: 129 Sqm, 137 Sqm</li>
+                            <li>5: 129 Sqm</li>
+                            <li>6: 162 Sqm</li>
+                            <li>7: 129 Sqm</li>
+                            <li>8: 129 Sqm, 153 Sqm</li>
+                            <li>9: 129 Sqm</li>
+                            <li>10: 129 Sqm</li>
+                        </ul>
+                    </ul>`,
+                '3 BED': `
+                    <ul>
+                        <li>Starting Price 8.8M</li>
+                    </ul>`,
+                '3 BED LOFT': `
+                    <ul>
+                        <li>Starting Price 11M</li>
+                        <li>183 Sqm (Village View)</li>
+                        <li>202 Sqm (Village View)</li>
+                        <li>199 Sqm (Village View)</li>
+                    </ul>`,
+                '4 BED': `
+                    <ul>
+                        <li>Starting Price 14.2M</li>
+                        <li>4 BED DUP: Starting Price 14.6M</li>
+                        <li>4 BED LOFT: Starting Price 17.5M (Village View)</li>
+                    </ul>`
+            };
+
+            const availability = {
+                '1 BED LOFT': ['G (7Apts)', '2 (6Apts)', '4 (7Apts)'],
+                '2 BED LOFT': ['6 (7Apts)', '8 (5Apts)'],
+                '3 BED LOFT': ['G (7Apts)', '2 (6Apts)', '4 (7Apts)'],
+                '2 BED': ['G (7Apts)', '1 (4Apts)', '2 (6Apts)', '3 (4Apts)', '4 (7Apts)', '5 (5Apts)', '6 (7Apts)', '7 (4Apts)', '8 (5Apts)', '9 (2Apts)', '10 (3Apts)'],
+                '3 BED': ['G (7Apts)', '2 (6Apts)', '4 (7Apts)'],
+            };
+
+            typeSelect.addEventListener('change', function() {
+                const selectedType = typeSelect.value;
+                floorSelect.innerHTML = '<option value="">--Choose floor capacity--</option>';
+
+                if (selectedType && availability[selectedType]) {
+                    availability[selectedType].forEach(floor => {
+                        const option = document.createElement('option');
+                        option.value = floor;
+                        option.textContent = floor;
+                        floorSelect.appendChild(option);
+                    });
+                } else {
+                    for (let i = 0; i < floorSelect.options.length; i++) {
+                        floorSelect.options[i].style.display = '';
+                    }
+                }
+
+                if (selectedType) {
+                    detailsDiv.innerHTML = propertyDetails[selectedType];
+                } else {
+                    detailsDiv.innerHTML = '';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>ORA Towers G Building</h1>
+        <form id="propertyForm">
+            <label for="type">Choose Type:</label>
+            <select id="type" required>
+                <option value="">--Choose a type--</option>
+                <option value="1 BED">1 BED</option>
+                <option value="1 BED LOFT">1 BED LOFT</option>
+                <option value="2 BED">2 BED</option>
+                <option value="3 BED">3 BED</option>
+                <option value="3 BED LOFT">3 BED LOFT</option>
+                <option value="4 BED">4 BED</option>
+            </select>
+
+            <label for="floor">Floor Capacity:</label>
+            <select id="floor" required>
+                <option value="">--Choose floor capacity--</option>
+                <option value="G (7Apts)">G (7Apts)</option>
+                <option value="1 (4Apts)">1 (4Apts)</option>
+                <option value="2 (6Apts)">2 (6Apts)</option>
+                <option value="3 (4Apts)">3 (4Apts)</option>
+                <option value="4 (7Apts)">4 (7Apts)</option>
+                <option value="5 (5Apts)">5 (5Apts)</option>
+                <option value="6 (7Apts)">6 (7Apts)</option>
+                <option value="7 (4Apts)">7 (4Apts)</option>
+                <option value="8 (5Apts)">8 (5Apts)</option>
+                <option value="9 (2Apts)">9 (2Apts)</option>
+                <option value="10 (3Apts)">10 (3Apts)</option>
+            </select>
+
+            <label for="details">Details:</label>
+            <div id="details"></div>
+        </form>
+    </div>
+</body>
+</html>
